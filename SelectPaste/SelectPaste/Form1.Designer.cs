@@ -81,6 +81,7 @@
             this.SelectFile.TabIndex = 4;
             this.SelectFile.Text = "浏览";
             this.SelectFile.UseVisualStyleBackColor = true;
+            this.SelectFile.Click += new System.EventHandler(this.SelectFile_Click);
             // 
             // SelectPaste_From
             // 

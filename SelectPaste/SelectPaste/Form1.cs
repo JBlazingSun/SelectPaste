@@ -16,5 +16,24 @@ namespace SelectPaste
         {
             InitializeComponent();
         }
+
+        private void SelectFile_Click(object sender, EventArgs e)
+        {
+            
+        }
+    }
+
+    public class MyFunc
+    {
+        private MyFunc()
+        {
+        }
+        private readonly MyFunc _instance=new MyFunc();
+
+        public static MyFunc GetInstance()
+        {
+            return _instance;
+        }
+        
     }
 }
