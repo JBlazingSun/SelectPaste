@@ -33,6 +33,7 @@
             this.txtboxValue = new System.Windows.Forms.TextBox();
             this.txtboxFilePath = new System.Windows.Forms.TextBox();
             this.SelectFile = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // listBox1
@@ -78,11 +79,21 @@
             this.SelectFile.UseVisualStyleBackColor = true;
             this.SelectFile.Click += new System.EventHandler(this.SelectFile_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(12, 368);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(77, 12);
+            this.label1.TabIndex = 5;
+            this.label1.Text = "数据文件路径";
+            // 
             // SelectPaste_From
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(377, 420);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.SelectFile);
             this.Controls.Add(this.txtboxFilePath);
             this.Controls.Add(this.txtboxValue);
@@ -104,6 +115,7 @@
         private System.Windows.Forms.TextBox txtboxValue;
         private System.Windows.Forms.TextBox txtboxFilePath;
         private System.Windows.Forms.Button SelectFile;
+        private System.Windows.Forms.Label label1;
     }
 }
 
