@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using CSharpCommonDll;
 
 namespace SelectPaste
 {
@@ -19,6 +20,7 @@ namespace SelectPaste
 
         private void SelectFile_Click(object sender, EventArgs e)
         {
+            var jyh = Jyh.GetInstance();
             
         }
     }
@@ -28,7 +30,7 @@ namespace SelectPaste
         private MyFunc()
         {
         }
-        private readonly MyFunc _instance=new MyFunc();
+        private static readonly MyFunc _instance=new MyFunc();
 
         public static MyFunc GetInstance()
         {
