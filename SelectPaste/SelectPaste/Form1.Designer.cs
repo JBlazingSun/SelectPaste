@@ -37,17 +37,12 @@
             // 
             // listBox1
             // 
+            this.listBox1.Font = new System.Drawing.Font("宋体", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 12;
-            this.listBox1.Items.AddRange(new object[] {
-            "11",
-            "22",
-            "33",
-            "44",
-            "55"});
+            this.listBox1.ItemHeight = 29;
             this.listBox1.Location = new System.Drawing.Point(12, 50);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(353, 316);
+            this.listBox1.Size = new System.Drawing.Size(353, 294);
             this.listBox1.TabIndex = 0;
             // 
             // btnAdd
@@ -87,7 +82,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(377, 427);
+            this.ClientSize = new System.Drawing.Size(377, 420);
             this.Controls.Add(this.SelectFile);
             this.Controls.Add(this.txtboxFilePath);
             this.Controls.Add(this.txtboxValue);
@@ -96,6 +91,7 @@
             this.Name = "SelectPaste_From";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "SelectPaste";
+            this.Load += new System.EventHandler(this.SelectPaste_From_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -13,6 +13,7 @@ namespace SelectPaste
 {
     public partial class SelectPaste_From : Form
     {
+        Jyh jyh = Jyh.GetInstance();
         public SelectPaste_From()
         {
             InitializeComponent();
@@ -20,8 +21,12 @@ namespace SelectPaste
 
         private void SelectFile_Click(object sender, EventArgs e)
         {
-            var jyh = Jyh.GetInstance();
             
+        }
+
+        private void SelectPaste_From_Load(object sender, EventArgs e)
+        {
+
         }
     }
 
