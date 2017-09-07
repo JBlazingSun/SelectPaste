@@ -17,7 +17,8 @@ namespace SelectPaste
     {
         private string FilePath = "FilePath";
         Jyh jyh = Jyh.GetInstance();
-        private MyFunc fc = MyFunc.GetInstance();
+        private string password = "blazings";
+        private string iv = "iv";
         public SelectPaste_From()
         {
             InitializeComponent();
@@ -25,7 +26,13 @@ namespace SelectPaste
 
         private void SelectFile_Click(object sender, EventArgs e)
         {
-            var filePath = jyh.OpenFile("*.ini || ");
+            var filePath = jyh.OpenFile("*.txt");
+            FileInfo fi = new FileInfo(filePath);
+            if (fi.Extension != ".txt")
+            {
+                MessageBox.Show("请选择txt文件");
+                return;
+            }
             var signal=jyh.WriteRegister(FilePath, FilePath, FilePath, filePath);
             if (!signal)
             {
@@ -33,6 +40,7 @@ namespace SelectPaste
                 return;
             }
             txtboxFilePath.Text = filePath;
+            ReloadList(valueList);
 
         }
 
@@ -42,25 +50,42 @@ namespace SelectPaste
             if (regInfo.Count>0 && File.Exists(regInfo.First(r => r.Key==FilePath).Value))
             {
                 txtboxFilePath.Text = regInfo.First(r => r.Key == FilePath).Value;
+                var valueList = fc.ReadAllValue(section, txtboxFilePath.Text, jyh);
+                ReloadList(valueList);
             }
             else
             {
                 SelectFile_Click(sender, e);
             }
         }
-    }
 
-    public class MyFunc
-    {
-        private MyFunc()
+        private void btnAdd_Click(object sender, EventArgs e)
         {
+            if (txtboxValue.Text=="")
+            {
+                return;
+            }
+            try
+            {
+                
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.ToString());
+                throw;
+            }
+            
         }
-        private static readonly MyFunc _instance=new MyFunc();
+        public void ReloadList(List<string> values)
+        {
+            listBox1.DataSource = values;
+        }
 
-        public static MyFunc GetInstance()
+        public bool WriteValue(string valueText, string passwordIV= "blazings")
         {
-            return _instance;
+            var encryptStr = jyh.DESEncrypt(valueText, passwordIV);
+
+            return true;
         }
-        
     }
 }
