@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SelectPaste_From));
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.btnAdd = new System.Windows.Forms.Button();
             this.txtboxValue = new System.Windows.Forms.TextBox();
@@ -35,6 +37,8 @@
             this.SelectFile = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.labState = new System.Windows.Forms.Label();
+            this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.SuspendLayout();
             // 
             // listBox1
@@ -65,6 +69,7 @@
             this.txtboxValue.Name = "txtboxValue";
             this.txtboxValue.Size = new System.Drawing.Size(272, 21);
             this.txtboxValue.TabIndex = 2;
+            this.txtboxValue.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtboxValue_KeyDown);
             // 
             // txtboxFilePath
             // 
@@ -96,11 +101,24 @@
             // 
             this.labState.AutoSize = true;
             this.labState.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.labState.Location = new System.Drawing.Point(159, 422);
+            this.labState.Location = new System.Drawing.Point(9, 422);
             this.labState.Name = "labState";
             this.labState.Size = new System.Drawing.Size(40, 16);
             this.labState.TabIndex = 6;
             this.labState.Text = "状态";
+            // 
+            // notifyIcon1
+            // 
+            this.notifyIcon1.ContextMenuStrip = this.contextMenuStrip1;
+            this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
+            this.notifyIcon1.Text = "SelectPaste";
+            this.notifyIcon1.Visible = true;
+            this.notifyIcon1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon1_MouseDoubleClick);
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
             // 
             // SelectPaste_From
             // 
@@ -114,10 +132,13 @@
             this.Controls.Add(this.txtboxValue);
             this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.listBox1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "SelectPaste_From";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "SelectPaste";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.SelectPaste_From_FormClosed);
             this.Load += new System.EventHandler(this.SelectPaste_From_Load);
+            this.SizeChanged += new System.EventHandler(this.SelectPaste_From_SizeChanged);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -132,6 +153,8 @@
         private System.Windows.Forms.Button SelectFile;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label labState;
+        private System.Windows.Forms.NotifyIcon notifyIcon1;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
     }
 }
 

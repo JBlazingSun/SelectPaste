@@ -19,6 +19,7 @@ namespace SelectPaste
         static Jyh jyh = Jyh.GetInstance();
         private string password = "blazings";
         private string iv = "iv";
+        private const int hotKeyId = 100;
         public SelectPaste_From()
         {
             InitializeComponent();
@@ -42,9 +43,15 @@ namespace SelectPaste
             txtboxFilePath.Text = filePath;
             ReloadList(ReadValue(filePath));
         }
-
+        //窗口加载
         private void SelectPaste_From_Load(object sender, EventArgs e)
         {
+            //热键
+            if (!Jyh.RegisterHotKey(Handle, hotKeyId, Jyh.KeyModifiers.Alt, Keys.V))
+            {
+                MessageBox.Show("热键注册失败");
+            }
+            
             var regInfo=jyh.GetRegister(FilePath, FilePath);
             if (regInfo.Count>0 && File.Exists(regInfo.First(r => r.Key==FilePath).Value))
             {
@@ -117,8 +124,6 @@ namespace SelectPaste
             }
             catch (Exception exception)
             {
-                Console.WriteLine(exception);
-                throw;
             }
         }
         //删除
@@ -141,6 +146,78 @@ namespace SelectPaste
                     throw;
                 }
                 ReloadList(ReadValue(txtboxFilePath.Text));
+            }
+        }
+        //窗口关闭
+        private void SelectPaste_From_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Jyh.UnregisterHotKey(Handle, hotKeyId);
+        }
+
+        protected override void WndProc(ref Message m)
+        {
+            const int WM_HOTKEY = 0x0312;
+            //按快捷键 
+            switch (m.Msg)
+            {
+                case WM_HOTKEY:
+                    switch (m.WParam.ToInt32())
+                    {
+                        case hotKeyId:    //按下的是Shift+S
+                            if (Visible)
+                            {
+                                HideForm();
+                            }
+                            else
+                            {
+                                ShowForm();
+                            }
+                            break;
+                    }
+                    break;
+            }
+            base.WndProc(ref m);
+        }
+
+        private void SelectPaste_From_SizeChanged(object sender, EventArgs e)
+        {
+            if (WindowState == FormWindowState.Minimized)
+            {
+                notifyIcon1.Visible = true;
+                Hide();
+            }
+        }
+
+        public void ShowForm()
+        {
+            this.Visible = true;
+            this.WindowState = FormWindowState.Normal;
+            this.Activate();
+        }
+        public void HideForm()
+        {
+            this.WindowState = FormWindowState.Minimized;
+            this.notifyIcon1.Visible = true;
+            this.Hide();
+        }
+        //双击显示
+        private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            if (this.Visible)
+            {
+                HideForm();
+            }
+            else
+            {
+                ShowForm();
+            }
+        }
+
+        private void txtboxValue_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData==Keys.Enter)
+            {
+                btnAdd_Click(sender, e);
             }
         }
     }
