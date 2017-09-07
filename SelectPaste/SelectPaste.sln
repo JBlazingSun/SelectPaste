@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.26730.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SelectPaste", "SelectPaste\SelectPaste.csproj", "{ECF09B0A-C18C-4ED4-AB7C-8553812AE922}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SelectPasteTests", "SelectPasteTests\SelectPasteTests.csproj", "{D3438202-56D6-40A6-B162-218C3C641B39}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{ECF09B0A-C18C-4ED4-AB7C-8553812AE922}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ECF09B0A-C18C-4ED4-AB7C-8553812AE922}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ECF09B0A-C18C-4ED4-AB7C-8553812AE922}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D3438202-56D6-40A6-B162-218C3C641B39}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3438202-56D6-40A6-B162-218C3C641B39}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3438202-56D6-40A6-B162-218C3C641B39}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3438202-56D6-40A6-B162-218C3C641B39}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

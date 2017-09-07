@@ -34,6 +34,7 @@
             this.txtboxFilePath = new System.Windows.Forms.TextBox();
             this.SelectFile = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.labState = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // listBox1
@@ -45,6 +46,8 @@
             this.listBox1.Name = "listBox1";
             this.listBox1.Size = new System.Drawing.Size(353, 294);
             this.listBox1.TabIndex = 0;
+            this.listBox1.Click += new System.EventHandler(this.listBox1_Click);
+            this.listBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.listBox1_KeyDown);
             // 
             // btnAdd
             // 
@@ -89,11 +92,22 @@
             this.label1.TabIndex = 5;
             this.label1.Text = "数据文件路径";
             // 
+            // labState
+            // 
+            this.labState.AutoSize = true;
+            this.labState.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.labState.Location = new System.Drawing.Point(159, 422);
+            this.labState.Name = "labState";
+            this.labState.Size = new System.Drawing.Size(40, 16);
+            this.labState.TabIndex = 6;
+            this.labState.Text = "状态";
+            // 
             // SelectPaste_From
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(377, 420);
+            this.ClientSize = new System.Drawing.Size(377, 447);
+            this.Controls.Add(this.labState);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.SelectFile);
             this.Controls.Add(this.txtboxFilePath);
@@ -117,6 +131,7 @@
         private System.Windows.Forms.TextBox txtboxFilePath;
         private System.Windows.Forms.Button SelectFile;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label labState;
     }
 }
 
