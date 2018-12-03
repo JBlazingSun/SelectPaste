@@ -20,6 +20,7 @@ namespace SelectPaste
         private string password = "blazings";
         private string iv = "iv";
         private const int hotKeyId = 100;
+        private Dictionary<int, string> orderAndContentw;
         public SelectPaste_From()
         {
             InitializeComponent();
