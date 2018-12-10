@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using CSharpCommonDll;
+using Newtonsoft.Json;
 
 namespace SelectPaste
 {
@@ -20,7 +21,7 @@ namespace SelectPaste
         private string password = "blazings";
         private string iv = "iv";
         private const int hotKeyId = 100;
-        private Dictionary<int, string> orderAndContentw;
+        private static string passwdPath;
         public SelectPaste_From()
         {
             InitializeComponent();
@@ -28,21 +29,21 @@ namespace SelectPaste
 
         private void SelectFile_Click(object sender, EventArgs e)
         {
-            var filePath = jyh.OpenFile("*.txt");
-            FileInfo fi = new FileInfo(filePath);
+            passwdPath = jyh.OpenFile("*.txt");
+            FileInfo fi = new FileInfo(passwdPath);
             if (fi.Extension != ".txt")
             {
                 MessageBox.Show("请选择txt文件");
                 return;
             }
-            var signal=jyh.WriteRegister(FilePath, FilePath, FilePath, filePath);
+            var signal=jyh.WriteRegister(FilePath, FilePath, FilePath, passwdPath);
             if (!signal)
             {
                 MessageBox.Show("写入注册表失败");
                 return;
             }
-            txtboxFilePath.Text = filePath;
-            ReloadList(ReadValue(filePath));
+            txtboxFilePath.Text = passwdPath;
+            ReloadList(ReadValue(passwdPath));
         }
         //窗口加载
         private void SelectPaste_From_Load(object sender, EventArgs e)
@@ -57,6 +58,7 @@ namespace SelectPaste
             if (regInfo.Count>0 && File.Exists(regInfo.First(r => r.Key==FilePath).Value))
             {
                 txtboxFilePath.Text = regInfo.First(r => r.Key == FilePath).Value;
+                passwdPath = txtboxFilePath.Text;
                 ReloadList(ReadValue(txtboxFilePath.Text));
             }
             else
@@ -64,10 +66,10 @@ namespace SelectPaste
                 SelectFile_Click(sender, e);
             }
         }
-
+        //添加一个
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            if (txtboxValue.Text=="")
+            if (string.IsNullOrWhiteSpace(txtboxValue.Text))
             {
                 return;
             }
@@ -85,37 +87,53 @@ namespace SelectPaste
         }
         public List<string> ReadValue(string filePath)
         {
-            var enStrList=jyh.ReadTxt(filePath);
-            var deStrList=new List<string>();
-            foreach (var VARIABLE in enStrList)
+            var StrList=File.ReadAllText(filePath);
+            var deStrList = JsonConvert.DeserializeObject<List<string>>(StrList);
+            if (deStrList == null)
             {
-                if (VARIABLE!="")
-                {
-                    deStrList.Add(jyh.DESDecrypt(VARIABLE, password));
-                }
+                deStrList = new List<string>();
             }
             return deStrList;
         }
-
+        //重载列表
         public void ReloadList(List<string> values)
         {
-            listBox1.DataSource = values;
+            listBox1.Items.Clear();
+            if (values!=null)
+            {
+                foreach (var value in values)
+                {
+                    listBox1.Items.Add(value);
+                }
+            }
         }
-
-        public bool WriteValue(string valueText, string passwordIV= "blazings")
+        //写入文件
+        public void WriteValue(string valueText)
         {
-            var encryptStr = jyh.DESEncrypt(valueText, passwordIV);
-            jyh.WriteTxtAppend(txtboxFilePath.Text, encryptStr, true);
-            return true;
+            var passwdList = ReadValue(passwdPath);
+            if (passwdList.Contains(valueText))
+            {
+                return;
+            }
+            passwdList.Add(valueText);
+            var toJson = JsonConvert.SerializeObject(passwdList);
+            jyh.WriteTxt(passwdPath,toJson);
         }
         //删除
         public void DeleteValue(string filePath,string valueText, string passwordIV = "blazings")
         {
-            var encryptStr = jyh.DESEncrypt(valueText, passwordIV);
-            jyh.ModifyTxt(filePath,encryptStr,"");
-
+            var passwdList = ReadValue(passwdPath);
+            for (int i = passwdList.Count - 1; i >= 0; i--)
+            {
+                if (valueText.Equals(passwdList[i]))
+                {
+                    passwdList.RemoveAt(i);
+                }
+            }
+            var toJson = JsonConvert.SerializeObject(passwdList);
+            jyh.WriteTxt(passwdPath, toJson);
         }
-        //单机复制
+        //单击复制
         private void listBox1_Click(object sender, EventArgs e)
         {
             try
