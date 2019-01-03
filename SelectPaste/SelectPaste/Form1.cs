@@ -49,7 +49,7 @@ namespace SelectPaste
         private void SelectPaste_From_Load(object sender, EventArgs e)
         {
             //热键
-            if (!Jyh.RegisterHotKey(Handle, hotKeyId,  Jyh.KeyModifiers.WindowsKey, Keys.V))
+            if (!Jyh.RegisterHotKey(Handle, hotKeyId,  Jyh.KeyModifiers.Shift, Keys.V))
             {
                 MessageBox.Show("热键注册失败");
             }
@@ -182,7 +182,7 @@ namespace SelectPaste
                 case WM_HOTKEY:
                     switch (m.WParam.ToInt32())
                     {
-                        case hotKeyId:    //按下的是Shift+S
+                        case hotKeyId:    
                             if (Visible)
                             {
                                 HideForm();
