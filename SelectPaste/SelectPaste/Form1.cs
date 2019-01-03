@@ -49,7 +49,7 @@ namespace SelectPaste
         private void SelectPaste_From_Load(object sender, EventArgs e)
         {
             //热键
-            if (!Jyh.RegisterHotKey(Handle, hotKeyId, Jyh.KeyModifiers.Alt, Keys.V))
+            if (!Jyh.RegisterHotKey(Handle, hotKeyId,  Jyh.KeyModifiers.WindowsKey, Keys.V))
             {
                 MessageBox.Show("热键注册失败");
             }
