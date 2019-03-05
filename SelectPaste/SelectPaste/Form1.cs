@@ -239,5 +239,20 @@ namespace SelectPaste
                 btnAdd_Click(sender, e);
             }
         }
+
+        private void notifyIcon1_MouseClick(object sender, MouseEventArgs e)
+        {
+            MouseEventArgs mouseE = e;
+            //右键
+            if (mouseE.Button == MouseButtons.Right)
+            {
+                contextMenuStrip1.Show();
+            }
+        }
+
+        private void ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
     }
 }
