@@ -124,12 +124,12 @@
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(181, 48);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(101, 26);
             // 
             // ToolStripMenuItem
             // 
             this.ToolStripMenuItem.Name = "ToolStripMenuItem";
-            this.ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.ToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
             this.ToolStripMenuItem.Text = "退出";
             this.ToolStripMenuItem.Click += new System.EventHandler(this.ToolStripMenuItem_Click);
             // 
@@ -149,6 +149,7 @@
             this.Name = "SelectPaste_From";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "SelectPaste";
+            this.WindowState = System.Windows.Forms.FormWindowState.Minimized;
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.SelectPaste_From_FormClosed);
             this.Load += new System.EventHandler(this.SelectPaste_From_Load);
             this.SizeChanged += new System.EventHandler(this.SelectPaste_From_SizeChanged);

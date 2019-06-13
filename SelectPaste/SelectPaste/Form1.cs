@@ -65,6 +65,7 @@ namespace SelectPaste
             {
                 SelectFile_Click(sender, e);
             }
+            HideForm();
         }
         //添加一个
         private void btnAdd_Click(object sender, EventArgs e)
