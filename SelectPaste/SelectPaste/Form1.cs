@@ -19,8 +19,6 @@ namespace SelectPaste
     {
         private string FilePath = "FilePath";
         static Jyh jyh = Jyh.GetInstance();
-        private string password = "blazings";
-        private string iv = "iv";
         private const int hotKeyId = 100;
         private static string passwdPath;
         public SelectPaste_From()
@@ -54,8 +52,6 @@ namespace SelectPaste
 
             //同步时间
             Task.Factory.StartNew(TimeTask.TimeTaskThread);
-
-            TimeTask.TimeTaskThread();
 
             //热键
             if (!Jyh.RegisterHotKey(Handle, hotKeyId,  Jyh.KeyModifiers.Shift, Keys.V))
