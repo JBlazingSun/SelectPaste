@@ -55,6 +55,8 @@ namespace SelectPaste
             //同步时间
             Task.Factory.StartNew(TimeTask.TimeTaskThread);
 
+            TimeTask.TimeTaskThread();
+
             //热键
             if (!Jyh.RegisterHotKey(Handle, hotKeyId,  Jyh.KeyModifiers.Shift, Keys.V))
             {
