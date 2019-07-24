@@ -1,9 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization.Configuration;
+using Newtonsoft.Json;
+using SelectPaste.Model;
 
 namespace SelectPaste.Service
 {
@@ -13,9 +18,7 @@ namespace SelectPaste.Service
         {
             //取得当前系统时间
             DateTime t = ConvertIntDateTime(TimeUnix);
-            //在当前时间上加上一周
-            t = t.AddDays(7);
-            
+
             //转换System.DateTime到SYSTEMTIME
             SYSTEMTIME st = new SYSTEMTIME();
             st.FromDateTime(t);
@@ -23,6 +26,34 @@ namespace SelectPaste.Service
             //调用Win32 API设置系统时间
             Win32API.SetLocalTime(ref st);
         }
+
+        public int GetUnixBeijingTime()
+        {
+            var ret = 1564033137;
+
+            var Url = "http://api.m.taobao.com/rest/api3.do?api=mtop.common.getTimestamp";
+            WebRequest wReq = WebRequest.Create(Url);
+
+            WebResponse wResp = wReq.GetResponse();
+
+            Stream respStream = wResp.GetResponseStream();
+            StreamReader reader = new StreamReader(respStream, Encoding.GetEncoding("UTF-8"));
+            //result就是返回值
+            var result = reader.ReadToEnd();
+
+            var rootobject = JsonConvert.DeserializeObject<Rootobject>(result);
+            
+            try
+            {
+                ret = (rootobject.data.t.ToDouble() / 1000).ToInt32();
+            }
+            catch (Exception e)
+            {
+            }
+
+            return ret;
+        }
+
         /// <summary>
         /// 将Unix时间戳转换为DateTime类型时间
         /// </summary>

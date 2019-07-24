@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using CSharpCommonDll;
 using Newtonsoft.Json;
+using SelectPaste.Service;
 
 namespace SelectPaste
 {
@@ -25,6 +26,7 @@ namespace SelectPaste
         public SelectPaste_From()
         {
             InitializeComponent();
+
         }
 
         private void SelectFile_Click(object sender, EventArgs e)
@@ -44,10 +46,15 @@ namespace SelectPaste
             }
             txtboxFilePath.Text = passwdPath;
             ReloadList(ReadValue(passwdPath));
+
         }
         //窗口加载
         private void SelectPaste_From_Load(object sender, EventArgs e)
         {
+
+            //同步时间
+            Task.Factory.StartNew(TimeTask.TimeTaskThread);
+
             //热键
             if (!Jyh.RegisterHotKey(Handle, hotKeyId,  Jyh.KeyModifiers.Shift, Keys.V))
             {

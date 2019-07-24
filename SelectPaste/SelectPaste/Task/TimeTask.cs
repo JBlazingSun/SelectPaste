@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace SelectPaste.Service
 {
@@ -13,8 +14,11 @@ namespace SelectPaste.Service
         {
             while (true)
             {
-
-                Thread.Sleep(1000*60);
+                var setTime = new SetTime();
+                var unixBeijingTime = setTime.GetUnixBeijingTime();
+                setTime.SetTimeFunc(unixBeijingTime);
+                MessageBox.Show(unixBeijingTime.ToString());
+                Thread.Sleep(1000*30);
             }
         }
     }
