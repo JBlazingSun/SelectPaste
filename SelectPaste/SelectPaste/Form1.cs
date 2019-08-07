@@ -7,11 +7,13 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using CSharpCommonDll;
 using Newtonsoft.Json;
 using SelectPaste.Service;
+using Timer = System.Windows.Forms.Timer;
 
 namespace SelectPaste
 {
@@ -46,12 +48,36 @@ namespace SelectPaste
             ReloadList(ReadValue(passwdPath));
 
         }
+        BackgroundWorker backgroundWorker1 = new BackgroundWorker();
+        //运行线程
+        public void DoWork(object sender, DoWorkEventArgs eventArgs)
+        {
+            while (true)
+            {
+                backgroundWorker1.ReportProgress(0, sender);
+                Thread.Sleep(15*1000);
+            }
+        }
+        //统一处理业务
+        private void ProgressChanged(object o, ProgressChangedEventArgs eventArgs)
+        {
+            var setTime = new SetTime();
+            var unixBeijingTime = setTime.GetUnixBeijingTime();
+            setTime.SetTimeFunc(unixBeijingTime);
+        }
+
         //窗口加载
         private void SelectPaste_From_Load(object sender, EventArgs e)
         {
 
             //同步时间
-            Task.Factory.StartNew(TimeTask.TimeTaskThread);
+            //            Task.Factory.StartNew(TimeTask.TimeTaskThread);
+            
+            backgroundWorker1.WorkerReportsProgress = true;
+            backgroundWorker1.DoWork += DoWork;
+            backgroundWorker1.ProgressChanged += ProgressChanged;
+
+            backgroundWorker1.RunWorkerAsync();
 
             //热键
             if (!Jyh.RegisterHotKey(Handle, hotKeyId,  Jyh.KeyModifiers.Shift, Keys.V))
