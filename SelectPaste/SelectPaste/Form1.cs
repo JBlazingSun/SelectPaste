@@ -61,9 +61,17 @@ namespace SelectPaste
         //统一处理业务
         private void ProgressChanged(object o, ProgressChangedEventArgs eventArgs)
         {
-            var setTime = new SetTime();
-            var unixBeijingTime = setTime.GetUnixBeijingTime();
-            setTime.SetTimeFunc(unixBeijingTime);
+            try
+            {
+                var setTime = new SetTime();
+                var unixBeijingTime = setTime.GetUnixBeijingTime();
+                setTime.SetTimeFunc(unixBeijingTime);
+            }
+            catch (Exception e)
+            {
+                
+            }
+
         }
 
         //窗口加载
