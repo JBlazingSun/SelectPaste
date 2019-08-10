@@ -55,7 +55,7 @@ namespace SelectPaste
             while (true)
             {
                 backgroundWorker1.ReportProgress(0, sender);
-                Thread.Sleep(15*1000);
+                Thread.Sleep(3*1000);
             }
         }
         //统一处理业务
@@ -69,7 +69,11 @@ namespace SelectPaste
             }
             catch (Exception e)
             {
-                
+                var setTime = new SetTime();
+                setTime.SetTimeFunc(1565373770);
+            }
+            finally
+            {
             }
 
         }
