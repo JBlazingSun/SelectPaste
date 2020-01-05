@@ -69,8 +69,8 @@ namespace SelectPaste
             }
             catch (Exception e)
             {
-                var setTime = new SetTime();
-                setTime.SetTimeFunc(1565373770);
+//                var setTime = new SetTime();
+//                setTime.SetTimeFunc(1565373770);
             }
 
         }
