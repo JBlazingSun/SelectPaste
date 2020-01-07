@@ -64,12 +64,13 @@ namespace SelectPaste.Service
                 SelectPaste_From.ctDateTime = SelectPaste_From.anchorDateTime;
                 return true;
             }
-
-            var isPassOneDay = DateTime.Compare(SelectPaste_From.anchorDateTime, SelectPaste_From.ctDateTime);
-            if (isPassOneDay < 0)
+            //计算时间差，确定是否过了一天
+            TimeSpan ts = SelectPaste_From.ctDateTime.Subtract(SelectPaste_From.anchorDateTime);
+            var hours = (int)ts.TotalDays;
+            if (hours >= 1)
             {
                 SelectPaste_From.anchorDateTime = DateTime.Now;
-                SelectPaste_From.ctDateTime = DateTime.Now;
+                SelectPaste_From.ctDateTime = SelectPaste_From.anchorDateTime;
                 return true;
             }
 

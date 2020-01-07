@@ -26,5 +26,21 @@ namespace SelectPaste.Service.Tests
             var setTime = new SetTime();
             setTime.SetTimeFunc(1564033137);
         }
+
+        [Test()]
+        public void ifTimeDiffTest()
+        {
+            DateTime dt1 = DateTime.Now;
+
+
+            DateTime dt2 = DateTime.Now.AddHours(24);
+
+
+            TimeSpan ts = dt2.Subtract(dt1);
+
+
+            var hours = (int)ts.TotalDays;
+
+        }
     }
 }
