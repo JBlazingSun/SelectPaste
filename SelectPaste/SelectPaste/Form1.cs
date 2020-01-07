@@ -6,6 +6,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -19,14 +20,17 @@ namespace SelectPaste
 {
     public partial class SelectPaste_From : Form
     {
-        private string FilePath = "FilePath";
+        private string filePath = "FilePath";
         static Jyh jyh = Jyh.GetInstance();
         private const int hotKeyId = 100;
         private static string passwdPath;
+        public static DateTime anchorDateTime;
+        public static DateTime ctDateTime;
         public SelectPaste_From()
         {
             InitializeComponent();
-
+            anchorDateTime = new DateTime(1991, 6, 18);
+            ctDateTime = new DateTime(1991, 6, 18); 
         }
 
         private void SelectFile_Click(object sender, EventArgs e)
@@ -38,7 +42,7 @@ namespace SelectPaste
                 MessageBox.Show("请选择txt文件");
                 return;
             }
-            var signal=jyh.WriteRegister(FilePath, FilePath, FilePath, passwdPath);
+            var signal=jyh.WriteRegister(filePath, filePath, filePath, passwdPath);
             if (!signal)
             {
                 MessageBox.Show("写入注册表失败");
@@ -55,7 +59,7 @@ namespace SelectPaste
             while (true)
             {
                 backgroundWorker1.ReportProgress(0, sender);
-                Thread.Sleep(33*1000);
+                Thread.Sleep(300*1000);
             }
         }
         //统一处理业务
@@ -63,14 +67,30 @@ namespace SelectPaste
         {
             try
             {
+                //检测到网络畅通
+                if (new Ping().Send("114.114.114.114", 1000).Status != IPStatus.Success)
+                {
+                    return;
+                }
+
                 var setTime = new SetTime();
                 var unixBeijingTime = setTime.GetUnixBeijingTime();
                 setTime.SetTimeFunc(unixBeijingTime);
+
+                ctDateTime = DateTime.Now;
+
+                if (setTime.ifTimeDiff())
+                {
+                    var BlazingsBingWallpaperFullPath = Path.Combine(Environment.CurrentDirectory, "BlazingsBingWallpaper.exe");
+                    if (File.Exists(BlazingsBingWallpaperFullPath))
+                    {
+                        System.Diagnostics.Process.Start(BlazingsBingWallpaperFullPath);
+                    }
+                }
+
             }
             catch (Exception e)
             {
-//                var setTime = new SetTime();
-//                setTime.SetTimeFunc(1565373770);
             }
 
         }
@@ -78,9 +98,7 @@ namespace SelectPaste
         //窗口加载
         private void SelectPaste_From_Load(object sender, EventArgs e)
         {
-
-            //同步时间
-            //            Task.Factory.StartNew(TimeTask.TimeTaskThread);
+            
             
             backgroundWorker1.WorkerReportsProgress = true;
             backgroundWorker1.DoWork += DoWork;
@@ -94,10 +112,10 @@ namespace SelectPaste
                 MessageBox.Show("热键注册失败");
             }
             
-            var regInfo=jyh.GetRegister(FilePath, FilePath);
-            if (regInfo.Count>0 && File.Exists(regInfo.First(r => r.Key==FilePath).Value))
+            var regInfo=jyh.GetRegister(filePath, filePath);
+            if (regInfo.Count>0 && File.Exists(regInfo.First(r => r.Key==filePath).Value))
             {
-                txtboxFilePath.Text = regInfo.First(r => r.Key == FilePath).Value;
+                txtboxFilePath.Text = regInfo.First(r => r.Key == filePath).Value;
                 passwdPath = txtboxFilePath.Text;
                 ReloadList(ReadValue(txtboxFilePath.Text));
             }

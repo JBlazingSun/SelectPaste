@@ -54,7 +54,27 @@ namespace SelectPaste.Service
             return ret;
         }
 
+        public bool ifTimeDiff()
+        {
+            //是否为第一次启动,< 0 是
+            var isFirstStart = DateTime.Compare(SelectPaste_From.anchorDateTime, new DateTime(1991, 6, 18));
+            if (isFirstStart == 0)
+            {
+                SelectPaste_From.anchorDateTime = DateTime.Now;
+                SelectPaste_From.ctDateTime = SelectPaste_From.anchorDateTime;
+                return true;
+            }
 
+            var isPassOneDay = DateTime.Compare(SelectPaste_From.anchorDateTime, SelectPaste_From.ctDateTime);
+            if (isPassOneDay < 0)
+            {
+                SelectPaste_From.anchorDateTime = DateTime.Now;
+                SelectPaste_From.ctDateTime = DateTime.Now;
+                return true;
+            }
+
+            return false;
+        }
 
         /// <summary>
         /// 将Unix时间戳转换为DateTime类型时间
