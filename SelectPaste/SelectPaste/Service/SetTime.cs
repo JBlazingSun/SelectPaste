@@ -65,9 +65,16 @@ namespace SelectPaste.Service
                 return true;
             }
             //计算时间差，确定是否过了一天
-            TimeSpan ts = SelectPaste_From.ctDateTime.Subtract(SelectPaste_From.anchorDateTime);
-            var hours = (int)ts.TotalDays;
-            if (hours >= 1)
+            if (SelectPaste_From.anchorDateTime.Month == SelectPaste_From.ctDateTime.Month)
+            {
+                if (SelectPaste_From.anchorDateTime.Day != SelectPaste_From.ctDateTime.Day)
+                {
+                    SelectPaste_From.anchorDateTime = DateTime.Now;
+                    SelectPaste_From.ctDateTime = SelectPaste_From.anchorDateTime;
+                    return true;
+                }
+            }
+            else
             {
                 SelectPaste_From.anchorDateTime = DateTime.Now;
                 SelectPaste_From.ctDateTime = SelectPaste_From.anchorDateTime;

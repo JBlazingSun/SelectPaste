@@ -30,16 +30,17 @@ namespace SelectPaste.Service.Tests
         [Test()]
         public void ifTimeDiffTest()
         {
-            DateTime dt1 = DateTime.Now;
+            var dt1 = DateTime.Now;
+            var dt2 = dt1.Month;
 
 
-            DateTime dt2 = DateTime.Now.AddHours(24);
-
-
-            TimeSpan ts = dt2.Subtract(dt1);
-
-
-            var hours = (int)ts.TotalDays;
+            // DateTime dt2 = DateTime.Now.AddHours(24);
+            //
+            //
+            // TimeSpan ts = dt2.Subtract(dt1);
+            //
+            //
+            // var hours = (int)ts.TotalDays;
 
         }
     }

@@ -67,6 +67,9 @@ namespace SelectPaste
         {
             try
             {
+                //调试，查看时间
+                watchDate.Text = anchorDateTime.ToString("yyyy-MM-dd hh:mm:sss") + " - "+
+                            ctDateTime.ToString("yyyy-MM-dd hh:mm:sss");
                 //检测到网络畅通
                 if (new Ping().Send("114.114.114.114", 1000).Status != IPStatus.Success)
                 {
