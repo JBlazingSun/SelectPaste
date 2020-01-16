@@ -68,20 +68,19 @@ namespace SelectPaste
             try
             {
                 //调试，查看时间
-                watchDate.Text = anchorDateTime.ToString("yyyy-MM-dd hh:mm:sss") + " - "+
+                watchDate.Text = anchorDateTime.ToString("an: yyyy-MM-dd hh:mm:sss") + " - "+
                             ctDateTime.ToString("yyyy-MM-dd hh:mm:sss");
                 //检测到网络畅通
-                if (new Ping().Send("114.114.114.114", 1000).Status != IPStatus.Success)
+                if (new Ping().Send("119.29.29.29", 1000).Status != IPStatus.Success)
                 {
                     return;
                 }
 
                 var setTime = new SetTime();
                 var unixBeijingTime = setTime.GetUnixBeijingTime();
+                //增加对比时间点更新
                 setTime.SetTimeFunc(unixBeijingTime);
-
-                ctDateTime = DateTime.Now;
-
+                
                 if (setTime.ifTimeDiff())
                 {
                     var BlazingsBingWallpaperFullPath = Path.Combine(Environment.CurrentDirectory, "BlazingsBingWallpaper.exe");
