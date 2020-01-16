@@ -68,8 +68,8 @@ namespace SelectPaste
             try
             {
                 //调试，查看时间
-                watchDate.Text = anchorDateTime.ToString("an: yyyy-MM-dd hh:mm:sss") + " - "+
-                            ctDateTime.ToString("yyyy-MM-dd hh:mm:sss");
+                watchDate.Text = anchorDateTime.ToString("an: yyyy-MM-dd HH:mm:sss") + " - "+
+                            ctDateTime.ToString("yyyy-MM-dd HH:mm:sss");
                 //检测到网络畅通
                 if (new Ping().Send("119.29.29.29", 1000).Status != IPStatus.Success)
                 {
