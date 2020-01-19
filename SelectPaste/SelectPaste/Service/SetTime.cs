@@ -19,6 +19,9 @@ namespace SelectPaste.Service
             //取得当前系统时间
             DateTime t = ConvertIntDateTime(TimeUnix);
 
+            //对比时间点更新
+            SelectPaste_From.ctDateTime = t;
+
             //转换System.DateTime到SYSTEMTIME
             SYSTEMTIME st = new SYSTEMTIME();
             st.FromDateTime(t);
@@ -60,17 +63,21 @@ namespace SelectPaste.Service
             var isFirstStart = DateTime.Compare(SelectPaste_From.anchorDateTime, new DateTime(1991, 6, 18));
             if (isFirstStart == 0)
             {
-                SelectPaste_From.anchorDateTime = DateTime.Now;
-                SelectPaste_From.ctDateTime = SelectPaste_From.anchorDateTime;
+                SelectPaste_From.anchorDateTime = SelectPaste_From.ctDateTime;
                 return true;
             }
             //计算时间差，确定是否过了一天
-            TimeSpan ts = SelectPaste_From.ctDateTime.Subtract(SelectPaste_From.anchorDateTime);
-            var hours = (int)ts.TotalDays;
-            if (hours >= 1)
+            if (SelectPaste_From.anchorDateTime.Month == SelectPaste_From.ctDateTime.Month)
             {
-                SelectPaste_From.anchorDateTime = DateTime.Now;
-                SelectPaste_From.ctDateTime = SelectPaste_From.anchorDateTime;
+                if (SelectPaste_From.anchorDateTime.Day != SelectPaste_From.ctDateTime.Day)
+                {
+                    SelectPaste_From.anchorDateTime = SelectPaste_From.ctDateTime;
+                    return true;
+                }
+            }
+            else
+            {
+                SelectPaste_From.anchorDateTime = SelectPaste_From.ctDateTime;
                 return true;
             }
 
