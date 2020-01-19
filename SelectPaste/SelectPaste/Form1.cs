@@ -59,7 +59,7 @@ namespace SelectPaste
             while (true)
             {
                 backgroundWorker1.ReportProgress(0, sender);
-                Thread.Sleep(300*1000);
+                Thread.Sleep(240*1000);
             }
         }
         //统一处理业务
